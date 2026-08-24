@@ -1,0 +1,513 @@
+/* ==========================================================================
+   MAGI — design tokens
+   Palette: near-black void, three signal colors matching each persona,
+   plus a cold cyan "system" accent for chrome/UI elements.
+   Display face: Space Grotesk (geometric, a little sci-fi, not overused).
+   Mono face: JetBrains Mono for anything that reads as "system output."
+   ========================================================================== */
+
+:root {
+  --void: #0A0C10;
+  --void-2: #12151C;
+  --panel: #161A22;
+  --border: #262B36;
+  --text-primary: #E8EAED;
+  --text-dim: #7C8494;
+  --text-faint: #454C5A;
+
+  --logos: #5B8DEF;
+  --aegis: #E85D75;
+  --vector: #F5A623;
+  --arbiter: #C9A9E9;
+
+  --system: #3DDC97;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--void);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+}
+
+/* Faint grid overlay for "supercomputer" atmosphere */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+/* ---------------- Header ---------------- */
+.header {
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,12,16,0.85);
+  backdrop-filter: blur(6px);
+}
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  font-size: 15px;
+}
+.brand-mark { color: var(--system); }
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.status.live .status-dot {
+  background: var(--system);
+  box-shadow: 0 0 8px var(--system);
+  animation: pulse 1.4s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ---------------- Main / Intro ---------------- */
+.main {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 64px 24px 80px;
+}
+
+.intro { text-align: center; }
+.intro h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 4.5vw, 44px);
+  line-height: 1.15;
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
+}
+.intro-sub {
+  color: var(--text-dim);
+  font-size: 15px;
+  max-width: 520px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.question-form {
+  display: flex;
+  gap: 10px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+#questionInput {
+  flex: 1;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 16px 18px;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#questionInput:focus { border-color: var(--system); }
+#questionInput::placeholder { color: var(--text-faint); }
+
+#submitBtn {
+  background: var(--system);
+  color: var(--void);
+  border: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+  padding: 0 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+}
+#submitBtn:hover { opacity: 0.85; }
+#submitBtn:active { transform: scale(0.97); }
+#submitBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.examples {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+.examples-label {
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+  margin-right: 4px;
+}
+.example-chip {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 7px 14px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.example-chip:hover {
+  border-color: var(--system);
+  color: var(--text-primary);
+}
+
+/* ---------------- Council room ---------------- */
+.round-indicator {
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: var(--system);
+  margin-bottom: 24px;
+}
+
+.units-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.unit-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: box-shadow 0.4s, border-color 0.4s;
+  min-height: 260px;
+}
+
+/* Hexagon, drawn with clip-path — matches the NGE dashboard look */
+.unit-hex {
+  width: 88px;
+  height: 88px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: color-mix(in srgb, var(--unit-color) 18%, var(--void-2));
+  border: 2px solid var(--unit-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  transition: box-shadow 0.4s, transform 0.3s;
+}
+.unit-hex-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.unit-number {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--unit-color);
+}
+.unit-state {
+  display: none; /* number is enough inside the hex; state shown below instead */
+}
+
+.unit-name {
+  display: none; /* shown separately below the hex for clarity at small size */
+}
+
+.unit-panel .unit-role {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--unit-color);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+.unit-panel .unit-model {
+  font-size: 10px;
+  color: var(--text-faint);
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+/* State badge, shown as text under the model name */
+.unit-panel::after {
+  content: attr(data-state);
+}
+
+.unit-live-text {
+  flex: 1;
+  width: 100%;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-dim);
+  margin-top: 10px;
+  text-align: left;
+  min-height: 60px;
+}
+
+.unit-vote { margin-top: 10px; min-height: 22px; }
+
+/* STANDBY: dim, idle */
+.unit-panel.state-standby .unit-hex {
+  opacity: 0.5;
+}
+
+/* PROCESSING: pulsing glow, this is the "actively thinking" state */
+.unit-panel.state-processing {
+  border-color: var(--unit-color);
+  box-shadow: 0 0 0 1px var(--unit-color), 0 0 28px -6px var(--unit-color);
+}
+.unit-panel.state-processing .unit-hex {
+  opacity: 1;
+  animation: hexPulse 1.3s infinite ease-in-out;
+  box-shadow: 0 0 18px -2px var(--unit-color);
+}
+.unit-panel.state-processing .unit-live-text {
+  color: var(--text-primary);
+}
+.unit-panel.state-processing .unit-live-text::after {
+  content: "▋";
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--unit-color);
+  animation: caretBlink 0.9s infinite step-end;
+}
+@keyframes hexPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes caretBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* COMPLETE: settled, solid, no pulse */
+.unit-panel.state-complete .unit-hex {
+  opacity: 1;
+  box-shadow: 0 0 10px -3px var(--unit-color);
+}
+.unit-panel.state-complete .unit-live-text {
+  color: var(--text-primary);
+}
+
+.history-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--text-faint);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.transcript {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.turn {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--turn-color, var(--border));
+  border-radius: 4px;
+  padding: 16px 18px;
+  animation: slideIn 0.35s ease-out;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.turn-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.turn-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--turn-color);
+  letter-spacing: 0.06em;
+}
+.turn-round {
+  font-size: 10px;
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+}
+.turn .vote-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 9px;
+  border-radius: 100px;
+  border: 1px solid;
+  margin-left: auto;
+}
+.turn .vote-pill.approve {
+  color: var(--system);
+  border-color: var(--system);
+  background: rgba(61,220,151,0.08);
+}
+.turn .vote-pill.reject {
+  color: var(--aegis);
+  border-color: var(--aegis);
+  background: rgba(232,93,117,0.08);
+}
+.turn-text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+
+.verdict-box {
+  background: linear-gradient(180deg, rgba(201,169,233,0.08), rgba(201,169,233,0.02));
+  border: 1px solid var(--arbiter);
+  border-radius: 6px;
+  padding: 24px 26px;
+  margin-bottom: 24px;
+  animation: slideIn 0.4s ease-out;
+}
+.verdict-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--arbiter);
+  text-align: center;
+  margin-bottom: 18px;
+}
+.vote-tally {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 18px;
+}
+.vote-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.vote-unit-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.vote-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  border-radius: 100px;
+  border: 1px solid;
+}
+.vote-pill.approve {
+  color: var(--system);
+  border-color: var(--system);
+  background: rgba(61,220,151,0.08);
+}
+.vote-pill.reject {
+  color: var(--aegis);
+  border-color: var(--aegis);
+  background: rgba(232,93,117,0.08);
+}
+.verdict-result {
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.06em;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.verdict-result.approve { color: var(--system); }
+.verdict-result.reject { color: var(--aegis); }
+.verdict-result .tally-note {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  margin-top: 8px;
+}
+
+.reset-btn {
+  display: block;
+  margin: 0 auto;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  padding: 12px 26px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.reset-btn:hover {
+  border-color: var(--system);
+  color: var(--text-primary);
+}
+
+@media (max-width: 640px) {
+  .units-grid { grid-template-columns: 1fr; }
+  .question-form { flex-direction: column; }
+}

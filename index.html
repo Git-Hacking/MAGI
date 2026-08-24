@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MAGI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="grid-overlay"></div>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-mark">◆</span>
+        <span class="brand-text">MAGI</span>
+      </div>
+      <div class="status" id="status">
+        <span class="status-dot"></span>
+        <span id="statusText">STANDBY</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section class="intro" id="intro">
+      <h1>Three units. Three models.<br/>One vote.</h1>
+      <p class="intro-sub">Put a real question before MAGI. MELCHIOR, BALTHASAR, and CASPER — each a different AI model — will deliberate, then vote. Majority rules. A 2-1 split is a real outcome.</p>
+
+      <form id="questionForm" class="question-form">
+        <input
+          type="text"
+          id="questionInput"
+          placeholder="e.g. Should the mission proceed despite the unknown risk?"
+          autocomplete="off"
+        />
+        <button type="submit" id="submitBtn">DELIBERATE</button>
+      </form>
+
+      <div class="examples">
+        <span class="examples-label">TRY:</span>
+        <button class="example-chip" data-q="Should a self-driving car ever be programmed to sacrifice its passenger to save five pedestrians?">Trolley problem</button>
+        <button class="example-chip" data-q="Should we colonize Mars before fixing Earth's problems?">Mars vs. Earth</button>
+        <button class="example-chip" data-q="Should schools ban smartphones entirely during the school day?">Phones in school</button>
+      </div>
+    </section>
+
+    <section class="council-room" id="councilRoom" style="display:none;">
+      <div class="round-indicator" id="roundLabel">ROUND 1 / 3</div>
+      <div class="units-grid" id="unitsGrid"></div>
+      <div class="history-label">DELIBERATION LOG</div>
+      <div class="transcript" id="transcript"></div>
+      <div class="verdict-box" id="verdictBox" style="display:none;">
+        <div class="verdict-label">◆ MAGI DECISION ◆</div>
+        <div class="vote-tally" id="voteTally"></div>
+        <div class="verdict-result" id="verdictResult"></div>
+      </div>
+      <button class="reset-btn" id="resetBtn" style="display:none;">NEW QUESTION</button>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
