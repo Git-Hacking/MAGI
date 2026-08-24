@@ -5,14 +5,7 @@ A web app where three AI units — **MELCHIOR**, **BALTHASAR**, and **CASPER** �
 This is a **real, working project** using actual AI APIs, not a simulation. When you run it and ask a question, you're watching real AI models genuinely disagree and vote, live.
 
 ---
-
-## What's different about this version (v2)
-
-The first version used one AI model wearing three different "personality" system prompts. This version uses **three actually different models** — different companies, different training data, different quirks — via a service called **OpenRouter**, which gives you one API key with access to dozens of AI providers. That's a meaningfully more honest version of "three minds disagreeing," and it's the same design choice a well-known real GitHub project (`fshiori/magi`) makes, which is worth knowing: you're not copying it, you built your own independently, but it's good confirmation your instinct was a real, sound engineering choice.
-
----
-
-## What's actually going on (read this first)
+## What's actually going on
 
 Each MAGI unit is a `{ name, model, systemPrompt }` object defined in `server/server.js`, in the `MAGI_UNITS` array. **That's the file to open first.**
 
@@ -78,77 +71,5 @@ ai-council/
 - **Add a 4th unit as a tie-breaker for close calls**, or track vote history across multiple questions to see if any unit tends to side with another more often — that's a great "level 2" feature.
 
 ---
-
-## Publishing to GitHub — complete beginner walkthrough
-
-This assumes you've never used git or GitHub before. Every step is spelled out.
-
-### 1. Create a GitHub account
-Go to [github.com](https://github.com) and sign up. Free.
-
-### 2. Install Git on your computer
-Git is different from GitHub — GitHub is a website, Git is the actual tool that tracks and uploads your code.
-- **Mac**: open Terminal (search for it in Spotlight) and type `git --version`. If it's not installed, your Mac will prompt you to install it — just follow that prompt.
-- **Windows**: download and install [Git for Windows](https://git-scm.com/download/win). This also gives you "Git Bash," a terminal you'll use for the commands below.
-
-### 3. Tell Git who you are (one-time setup)
-Open your terminal (Terminal on Mac, Git Bash on Windows) and type these two lines, replacing the name/email with your own — this just labels your future uploads, it doesn't create an account:
-```
-git config --global user.name "Your Name"
-git config --global user.email "your@email.com"
-```
-
-### 4. Create a new, empty repository on GitHub
-1. Go to [github.com/new](https://github.com/new)
-2. Repository name: `magi` (or anything you want)
-3. Leave it set to **Public** so others can see it
-4. **Do NOT check "Add a README"** — you already have one in this project, and having two causes a conflict
-5. Click **Create repository**
-6. GitHub will show you a page with some commands and a URL like `https://github.com/YOUR-USERNAME/magi.git` — keep this page open, you'll need that URL in step 6
-
-### 5. Open a terminal INSIDE your project folder
-This part trips people up, so be precise: you need your terminal's "current location" to actually be the `ai-council` folder from the zip you downloaded, not just any random location.
-- **Mac**: find the unzipped `ai-council` folder in Finder, right-click it, choose "New Terminal at Folder" (or drag the folder onto the Terminal icon)
-- **Windows**: open the `ai-council` folder in File Explorer, click the address bar, type `cmd` and hit Enter — or right-click inside the folder and choose "Git Bash Here"
-
-Verify you're in the right place by typing:
-```
-ls
-```
-(Mac/Linux) or
-```
-dir
-```
-(Windows) — you should see `server`, `public`, `README.md` listed. If you don't, you're in the wrong folder.
-
-### 6. Run these five commands, in order
-Type each one, hit Enter, wait for it to finish before typing the next:
-```
-git init
-git add .
-git commit -m "First version of MAGI"
-git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/magi.git
-git push -u origin main
-```
-**Replace the URL in the second-to-last line** with the actual URL GitHub showed you in step 4.
-
-### 7. You'll likely be asked to log in
-The first time you push, GitHub may open a browser window asking you to sign in and authorize Git — just follow the prompts, it's a one-time thing per computer.
-
-### 8. Check it worked
-Refresh your GitHub repository page in the browser. You should see all your files — `server`, `public`, `README.md` — sitting there. That's it. It's live and public.
-
-### 9. The one thing to double-check every single time
-Look at your repo page and confirm there is **no `.env` file visible**. If you ever see one, delete it immediately from GitHub and treat your API key as compromised — go regenerate a new one at openrouter.ai. This shouldn't happen because of the `.gitignore` file already in the project, but it's always worth a 5-second glance.
-
-### Updating your project later
-Once this is set up, every time you make changes and want to re-upload them, you only need three commands, run from inside the project folder:
-```
-git add .
-git commit -m "describe what you changed here"
-git push
-```
-That's the entire day-to-day workflow — the steps above (1 through 6) are only needed once, the very first time.
 
 
